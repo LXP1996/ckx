@@ -32,7 +32,7 @@
           <td>社区收费</td>
           <td>社区地址</td>
           <td>社区类型</td>
-          <td>操作</td>
+          <td v-if="flage">操作</td>
         </tr>
       </thead>
       <tbody>
@@ -42,7 +42,7 @@
           <td>{{item.charge}}</td>
           <td>{{item.address==null?"暂无数据....":item.address}}</td>
           <td >{{item.type}}</td>
-          <td>
+          <td v-if="flage">
             <span>
               <button class="btn btn-info" @click="updata(item)">修改</button>
             </span>
@@ -62,6 +62,7 @@ import { get } from "http";
 export default {
   data() {
     return {
+      flage:false,//判断是否为管理员 true为管理员
       selectContent: "",
       serachContent: "",
       queryData: ""
@@ -139,7 +140,12 @@ export default {
         
     }
   },
-  async created() {
+  created() {
+     if(window.sessionStorage.getItem("username")=="root"){
+     this.flage=true;
+    }else{
+      this.flage=false;
+    }
     //创建组件时发送请求获取数据
     let data = axios
       .get("/apis/api/user/query_community")
@@ -154,6 +160,10 @@ export default {
       //将数据存在store中
       this.$store.state.queryCommunityData = res;
     });
+  },
+  beforeRouteLeave(to, from, next) {
+   this.flage=false;
+    next()
   }
 };
 </script>

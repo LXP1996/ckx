@@ -5,8 +5,8 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    isLogin:true,//登录状态  登录为True 非登录为false
-    Username:"ctx",
+    isLogin:false,//登录状态  登录为True 非登录为false
+    Username:window.sessionStorage.getItem("username"),
     queryCommunityData:null//查询社区信息的数据
 
   },
@@ -17,9 +17,8 @@ export default new Vuex.Store({
   }
   ,
   mutations: {
-
   },
   actions: {
-
+  
   }
 })

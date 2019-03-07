@@ -94,4 +94,31 @@ router.post("/updata_community", async (ctx) => {
     ctx.body = err.errors[0].message;
   });
 })
+//报修
+router.post("/therepair", async (ctx) => {
+  let obj = ctx.request.body//获取请求参数
+  await server.therepair(obj).then(res => {
+    ctx.body = res;//向页面响应信息
+  }).catch(err => {
+    ctx.body = err.errors[0].message;
+  });
+})
+//查询报修内容
+router.get("/queryrepair", async (ctx) => {
+  let obj = ctx.request.query//获取请求参数
+  await server.queryrepair(obj).then(res => {
+    ctx.body = res;//向页面响应信息
+  }).catch(err => {
+    ctx.body = err.errors[0].message;
+  });
+})
+//修改报修状态
+router.post("/updatarepair", async (ctx) => {
+  let obj = ctx.request.body//获取请求参数
+  await server.updatarepair(obj).then(res => {
+    ctx.body = res;//向页面响应信息
+  }).catch(err => {
+    ctx.body = err.errors[0].message;
+  });
+})
 module.exports = router;

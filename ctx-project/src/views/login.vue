@@ -34,11 +34,15 @@ export default {
       axios //发送请求
         .post("/apis/api/user/user_login", formdata)
         .then(res => {
+          
           if (res.data.code == 1) {
             //登录成功改变登录状态为true并跳转到管理页面
             this.$store.state.isLogin = true;
             window.sessionStorage.setItem("isLogin", true);
+            window.sessionStorage.setItem("username", res.data.data.username);
+             window.sessionStorage.setItem("userid", res.data.data.id)
             this.$router.push({ name: "home" });
+  
           } else {
             alert("账号或密码错误");
           }

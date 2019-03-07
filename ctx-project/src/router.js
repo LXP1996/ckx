@@ -12,6 +12,7 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Home,
+      redirect:"/home/welcome",
       beforeEnter(to, from, next) {//路由守卫=》登录进入管理页面 非登录进入登录页面
         if (store.getters.isLogin) {
         next();
@@ -20,8 +21,13 @@ export default new Router({
       } else{
         next({name:"login"})
       }
+     
       },
-      children:[
+      children:[{
+        path:'/home/welcome',
+          name:'welcome',
+          component:()=>import('./views/welcome.vue')
+      },
         {
           path:'/home/addCommunity',
           name:'addCommunity',
@@ -30,6 +36,27 @@ export default new Router({
           path:'/home/queryCommunity',
           name:'queryCommunity',
           component:()=>import('./views/queryCommunity.vue')
+        },
+        {
+          path:"/queryUser",
+          name:"queryUser",
+          component:()=>import("./views/queryUser")
+        },
+        {
+          path:"/repairpassword",
+          name:"repairpassword",
+          component:()=>import("./views/repairpassword")
+        },
+        {
+          path:"/Therepair",
+          name:"Therepair",
+          component:()=>import("./views/Therepair")
+          
+        },{
+          path:"/queryrepairecontent",
+          name:"queryrepairecontent",
+          component:()=>import("./views/queryrepairecontent")
+          
         }
       ]
     },
@@ -53,6 +80,7 @@ export default new Router({
       path:"/register",
       name:"register",
       component:()=>import("./views/register")
-    }
+    },
+   
   ]
 })

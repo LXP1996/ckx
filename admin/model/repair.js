@@ -14,6 +14,9 @@ sequelize.define('repair',{
     },
     userID:{//报修的用户
         type:DataTypes.STRING,
+    },
+    state:{//维修状态默认为0
+        type:DataTypes.STRING,
     }
     
 })
